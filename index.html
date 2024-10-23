@@ -176,6 +176,57 @@
 
     <script>
         // JavaScript functions as provided
+        function hitungBungaTunggal() {
+    const M = parseFloat(document.getElementById('M_tunggal').value);
+    const b = parseFloat(document.getElementById('b_tunggal').value) / 100;
+    const t = parseFloat(document.getElementById('t_tunggal').value);
+    
+    const bunga = M * b * t;
+    const modalAkhir = M + bunga;
+
+    document.getElementById('hasilBungaTunggal').innerText = 
+        `Bunga: Rp ${bunga.toFixed(2)}, Modal Akhir: Rp ${modalAkhir.toFixed(2)}`;
+}
+
+function hitungBungaMajemukAkhir() {
+    const M = parseFloat(document.getElementById('M_majemuk_akhir').value);
+    const b = parseFloat(document.getElementById('b_majemuk_akhir').value) / 100;
+    const t = parseFloat(document.getElementById('t_majemuk_akhir').value);
+
+    const modalAkhir = M * Math.pow((1 + b), t);
+
+    document.getElementById('hasilBungaMajemukAkhir').innerText = 
+        `Modal Akhir: Rp ${modalAkhir.toFixed(2)}`;
+}
+
+function hitungAnuitas() {
+    const M = parseFloat(document.getElementById('M_anuitas').value);
+    const b = parseFloat(document.getElementById('b_anuitas').value) / 100;
+    const A = parseFloat(document.getElementById('A_anuitas').value);
+    const n = parseInt(document.getElementById('periode_anuitas').value);
+
+    let sisaPinjaman = M;
+    const tbody = document.querySelector('#tabelAnuitas tbody');
+    tbody.innerHTML = ''; // Bersihkan tabel sebelum mengisi
+
+    for (let i = 1; i <= n; i++) {
+        const bunga = sisaPinjaman * b;
+        const angsuran = A - bunga;
+        sisaPinjaman -= angsuran;
+
+        const row = `
+            <tr>
+                <td>${i}</td>
+                <td>Rp ${M.toFixed(2)}</td>
+                <td>Rp ${bunga.toFixed(2)}</td>
+                <td>Rp ${angsuran.toFixed(2)}</td>
+                <td>Rp ${sisaPinjaman.toFixed(2)}</td>
+            </tr>
+        `;
+        tbody.innerHTML += row;
+    }
+}
+
     </script>
 
 </body>
